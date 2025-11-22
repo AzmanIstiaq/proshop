@@ -1,0 +1,31 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "eCommerce application build with the MERN Stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AzmanIstiaq/proshop.git"
+  },
+  "author": "Azman Istiaq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AzmanIstiaq/proshop/issues"
+  },
+  "homepage": "https://github.com/AzmanIstiaq/proshop#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "dotenv": "^17.2.3",
+    "nodemon": "^3.1.11"
+  }
+}
