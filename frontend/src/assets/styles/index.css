@@ -1,19 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-primary font-sans;
+  }
+
+  a,
+  .btn-link {
+    @apply text-indigo-600 hover:text-indigo-800 underline-offset-2;
+  }
+
+  h1 {
+    @apply text-2xl font-semibold text-primary;
+  }
+  h2 {
+    @apply text-xl font-semibold text-primary;
+  }
+  h3 {
+    @apply text-lg font-semibold text-primary;
+  }
+
+  label {
+    @apply text-sm font-semibold text-primary;
+  }
+
+  .card {
+    @apply bg-white border border-border;
+  }
+
+  .form-control,
+  .form-select {
+    @apply border-border text-primary;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    box-shadow: 0 0 0 0.1rem rgba(52, 58, 64, 0.15);
+    border-color: theme('colors.primary');
+  }
+
+  .btn-primary {
+    @apply bg-primary border-primary text-white;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    @apply bg-primaryHover border-primaryHover text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary border-secondary text-white;
+  }
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    @apply bg-secondaryHover border-secondaryHover text-white;
+  }
+
+  .table > :not(caption) > * > * {
+    @apply text-primary;
+  }
+  .table thead th {
+    @apply font-semibold text-primary;
+  }
+  .table tbody td {
+    @apply text-secondary;
+  }
+
+  .footer,
+  footer {
+    @apply bg-surface text-primary;
+  }
+}
+
 main {
   min-height: 80vh;
-}
-
-.rating span {
-  margin: 0.1rem;
-}
-
-.rating svg {
-  color: #f8e825;
-}
-
-.rating-text {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding-left: 0.5rem;
 }
 
 .product-title {
@@ -43,11 +106,114 @@ table th {
   margin-top: 10px;
 }
 
-.carousel-caption {
-  position: absolute;
+/* Dropdown styling */
+.dropdown-menu {
+  background-color: theme('colors.surface') !important;
+  border: 1px solid theme('colors.primary') !important;
+}
+
+.dropdown-item {
+  color: theme('colors.primary') !important;
+  font-weight: 600;
+}
+
+.dropdown-item:hover {
+  background-color: theme('colors.primary') !important;
+  color: #ffffff !important;
+}
+
+.header-pill {
+  background: theme('colors.surface');
+  border-color: theme('colors.primary');
+}
+
+.brand-primary {
+  color: theme('colors.primary') !important;
+}
+
+.header-nav a,
+.header-nav .dropdown-toggle {
+  color: theme('colors.primary') !important;
+}
+
+.header-nav .muted {
+  color: theme('colors.secondary') !important;
+}
+
+.search-input {
+  border-color: theme('colors.secondary');
+  background: #fff;
+  color: theme('colors.primary');
+}
+
+.search-input::placeholder {
+  color: theme('colors.secondary');
+}
+
+/* Search icon button hover */
+.search-btn:hover {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+}
+
+/* Carousel styling */
+.product-carousel {
+  background: transparent;
+}
+
+.product-carousel__item {
+  position: relative;
+}
+
+.product-carousel__img {
+  height: 420px;
+  object-fit: cover;
   width: 100%;
+}
+
+@media (min-width: 992px) {
+  .product-carousel__img {
+    height: 460px;
+  }
+}
+
+.product-carousel__caption {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem 1.5rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+  text-align: left;
+  color: #ffffff !important;
+}
+
+.product-carousel__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.product-carousel .carousel-control-prev-icon,
+.product-carousel .carousel-control-next-icon {
+  filter: invert(100%);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.product-carousel .carousel-control-prev,
+.product-carousel .carousel-control-next {
+  opacity: 0.9;
+}
+
+.product-carousel .carousel-indicators [data-bs-target] {
+  background-color: var(--color-primary);
+}
+
+/* Force mobile navbar collapse hidden on desktop */
+@media (min-width: 992px) {
+  #basic-navbar-nav {
+    display: none !important;
+  }
 }

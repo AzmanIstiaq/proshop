@@ -64,7 +64,10 @@ const ProductScreen = () => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
+      <Link
+        className="inline-block my-3 px-4 py-2 rounded-md bg-primary text-white text-sm font-semibold shadow-sm hover:bg-primaryHover transition"
+        to="/"
+      >
         Go Back
       </Link>
       {isLoading ? (
@@ -76,30 +79,50 @@ const ProductScreen = () => {
       ) : (
         <>
           <Meta title={product.name} description={product.description} />
-          <Row>
+          <Row className="g-4 align-items-stretch">
             <Col md={5}>
-              <Image src={product.image} alt={product.name} fluid />
+              <div className="h-100 rounded-lg overflow-hidden border border-border bg-white shadow-sm">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fluid
+                  className="w-100 h-100 object-cover"
+                />
+              </div>
             </Col>
             <Col md={4}>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h3>{product.name}</h3>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>
-                  Description: {product.description}
-                </ListGroup.Item>
-              </ListGroup>
+              <Card className="h-100 border border-border shadow-sm">
+                <ListGroup variant="flush" className="h-100">
+                  <ListGroup.Item className="border-0 border-b border-gray-200">
+                    <h3 className="text-xl font-semibold text-primary mb-1">
+                      {product.name}
+                    </h3>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Rating
+                      value={product.rating}
+                      text={`${product.numReviews} reviews`}
+                    />
+                  </ListGroup.Item>
+                  <ListGroup.Item className="text-secondary">
+                    <span className="font-semibold text-primary mr-1">
+                      Price:
+                    </span>
+                    ${product.price}
+                  </ListGroup.Item>
+                  <ListGroup.Item className="text-secondary leading-relaxed">
+                    <span className="font-semibold text-primary mr-1">
+                      Description:
+                    </span>
+                    {product.description}
+                  </ListGroup.Item>
+                  <ListGroup.Item className="border-0"></ListGroup.Item>
+                </ListGroup>
+              </Card>
             </Col>
             <Col md={3}>
-              <Card>
-                <ListGroup variant="flush">
+              <Card className="h-100 border border-border shadow-sm">
+                <ListGroup variant="flush" className="h-100">
                   <ListGroup.Item>
                     <Row>
                       <Col>Price:</Col>
@@ -138,9 +161,9 @@ const ProductScreen = () => {
                       </Row>
                     </ListGroup.Item>
                   )}
-                  <ListGroup.Item>
+                  <ListGroup.Item className="mt-auto">
                     <Button
-                      className="btn-block"
+                      className="w-100 bg-primary text-white border-primary hover:bg-primaryHover"
                       type="button"
                       disabled={product.countInStock === 0}
                       onClick={addToCartHandler}
@@ -152,25 +175,42 @@ const ProductScreen = () => {
               </Card>
             </Col>
           </Row>
-          <Row className="reviews">
-            <Col md={6}>
-              <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant="flush">
-                {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
-                  </ListGroup.Item>
-                ))}
-                <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
+          <Row className="reviews mt-4">
+            <Col md={6} className="space-y-3">
+              <Card className="border border-border shadow-sm">
+                <Card.Body>
+                  <h2 className="text-lg font-semibold text-primary mb-3">
+                    Reviews
+                  </h2>
+                  <ListGroup variant="flush" className="space-y-0">
+                    {product.reviews.length === 0 && (
+                      <ListGroup.Item className="bg-white px-0">
+                        <Message>No Reviews</Message>
+                      </ListGroup.Item>
+                    )}
+                    {product.reviews.map((review) => (
+                      <ListGroup.Item key={review._id} className="bg-white">
+                        <strong>{review.name}</strong>
+                        <Rating value={review.rating} />
+                        <p className="text-secondary mb-1">
+                          {review.createdAt.substring(0, 10)}
+                        </p>
+                        <p className="mb-0 text-secondary">{review.comment}</p>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </Card.Body>
+              </Card>
+
+              <Card className="border border-border shadow-sm">
+                <Card.Body>
+                  <h2 className="text-lg font-semibold text-primary mb-3">
+                    Write a Customer Review
+                  </h2>
                   {loadingProductReview && <Loader />}
                   {userInfo ? (
-                    <Form onSubmit={submitHandler}>
-                      <Form.Group controlId="rating" className="my-2">
+                    <Form onSubmit={submitHandler} className="space-y-3">
+                      <Form.Group controlId="rating">
                         <Form.Label>Rating</Form.Label>
                         <Form.Control
                           as="select"
@@ -185,11 +225,11 @@ const ProductScreen = () => {
                           <option value="5">5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
-                      <Form.Group controlId="comment" className="my-2">
+                      <Form.Group controlId="comment">
                         <Form.Label>Comment</Form.Label>
                         <Form.Control
                           as="textarea"
-                          row="3"
+                          rows={3}
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
@@ -198,7 +238,7 @@ const ProductScreen = () => {
                         disabled={loadingProductReview}
                         type="submit"
                         variant="primary"
-                        className="my-2"
+                        className="bg-primary border-primary hover:bg-primaryHover"
                       >
                         Submit
                       </Button>
@@ -208,8 +248,8 @@ const ProductScreen = () => {
                       Please <Link to="/login">sign in</Link> to write a review
                     </Message>
                   )}
-                </ListGroup.Item>
-              </ListGroup>
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
         </>
