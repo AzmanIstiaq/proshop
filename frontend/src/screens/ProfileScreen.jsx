@@ -42,6 +42,7 @@ const ProfileScreen = () => {
           _id: userInfo._id,
           name,
           email,
+          ...(password ? { password } : {}),
         }).unwrap();
         dispatch(setCredentials(res));
         toast.success("Profile updated successfully");
